@@ -59,15 +59,14 @@ Ensure you have the following tools installed:
 
 ### 3. Running the Application
 
-1. **Build the Application**
+**Build the Application**
 
    Navigate to the project directory and run the following Maven command to build the project:
 
   ```bash
    mvn clean install
    ```
-
-2. **Start the Application**
+**Start the Application**
 
    Start the application by running:
 
@@ -81,7 +80,7 @@ Ensure you have the following tools installed:
 
 SonarQube helps analyze the code quality and provides insights into potential issues.
 
-1. **Run SonarQube with Docker**:
+**Run SonarQube with Docker**:
 
    If you don't have SonarQube running, use the following Docker command to start SonarQube:
 
@@ -89,7 +88,7 @@ SonarQube helps analyze the code quality and provides insights into potential is
    docker run -d --name sonarqube -p 9000:9000 sonarqube
    ```
 
-2. **Run SonarQube Analysis**:
+**Run SonarQube Analysis**:
 
    After SonarQube is running, execute the following Maven command to analyze the code and push the results to SonarQube:
 
@@ -97,7 +96,7 @@ SonarQube helps analyze the code quality and provides insights into potential is
    mvn sonar:sonar -Dsonar.projectKey=iot-shop -Dsonar.host.url=http://localhost:9000 -Dsonar.login=your-sonarqube-token
    ```
 
-3. **View SonarQube Report**:
+**View SonarQube Report**:
 
    Once the analysis is complete, navigate to `http://localhost:9000` in your browser and log in to see the code quality report.
 
@@ -124,18 +123,7 @@ mvn jacoco:report
 
 To deploy the application in a containerized environment, you can create a Docker image for your Spring Boot application.
 
-1. **Create Dockerfile**
-
-   Inside the project root, create a `Dockerfile`:
-
-   ```dockerfile
-	FROM eclipse-temurin:21-jdk-slim
-	VOLUME /tmp
-	COPY target/iot-shop-0.0.1-SNAPSHOT.jar iot-shop.jar
-	ENTRYPOINT ["java", "-jar", "/iot-shop.jar"]
-   ```
-
-2. **Build Docker Image**
+**Build Docker Image**
 
    Run the following command to build the Docker image:
 
@@ -143,12 +131,12 @@ To deploy the application in a containerized environment, you can create a Docke
    docker build -t iot-shop .
    ```
 
-3. **Run the Docker Container**
+**Run the Docker Container**
 
    Run the following command to start the application inside a Docker container:
 
   ```bash
-   docker run -p 8080:8080 iot-shop
+   docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=dev iot-shop
    ```
 
 The application will now be available on `http://localhost:8080`.
@@ -192,7 +180,7 @@ Spring Boot allows you to use different configurations for different environment
    spring.profiles.active=prod  # For production
    ```
 
-5. **Verify the Active Profile**:
+**Verify the Active Profile**:
 
 You can verify that the correct profile is active by checking the logs when the application starts. It will display something like:
 
@@ -206,7 +194,7 @@ You can verify that the correct profile is active by checking the logs when the 
    The following profiles are active: prod
    ```
 
-6. **Switching Between Profiles**:
+**Switching Between Profiles**:
 
    You can easily switch between different profiles by modifying the `-Dspring-boot.run.profiles` argument or updating the `spring.profiles.active` property in your properties files.
 
